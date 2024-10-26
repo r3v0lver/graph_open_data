@@ -1,6 +1,6 @@
 ## Metapodaci
 
-- **Opis otvorene licencije**: Creative Commons Zero v1.0 Universal
+- **Licencija**: Creative Commons Zero v1.0 Universal
 - **Naziv autora**: Fran Pećnjak
 - **Verzija skupa podataka**: 1.0
 - **Jezik**: Engleski
