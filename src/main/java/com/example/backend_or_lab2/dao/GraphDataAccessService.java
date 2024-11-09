@@ -91,7 +91,7 @@ public class GraphDataAccessService implements GraphDao {
         List<Graph> graphs = jdbcTemplate.query(sql, (rs, rowNum) -> {
             ArrayList<Coloring> colorings = getColoringsForGraph(rs.getString("id"));
             Graph graph = new Graph(
-                    rs.getString("id"), rs.getInt("vNum"), (Integer[][]) rs.getObject("adjMatrix"),
+                    rs.getString("id"), rs.getInt("vNum"), (Integer[][]) rs.getArray("adjMatrix").getArray(),
                     rs.getBoolean("simpleGraph"), rs.getInt("chromaticNumber"), rs.getBoolean("isBipartite"),
                     rs.getInt("edgeCount"),  rs.getInt("connectedComponents"), rs.getFloat("density"),
                     rs.getInt("maxVertexDegree"), colorings);
@@ -102,11 +102,11 @@ public class GraphDataAccessService implements GraphDao {
     }
 
     private ArrayList<Coloring> getColoringsForGraph(String graphId) {
-        String sql = "SELECT graph_id, colorAssignment FROM coloring WHERE graph_id = ?";
+        String sql = "SELECT graph_id, coloring FROM coloring WHERE graph_id = ?";
 
         List<Coloring> colorings = jdbcTemplate.query(sql, new Object[]{graphId}, (rs, rowNum) -> {
             String id = rs.getString("graph_id");
-            Integer[] colorAssignment = (Integer[]) rs.getArray("colorAssignment").getArray();
+            Integer[] colorAssignment = (Integer[]) rs.getArray("coloring").getArray();
             return new Coloring(id, colorAssignment);
         });
 
