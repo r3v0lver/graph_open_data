@@ -1,0 +1,15 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://dpg-chbo1ubhp8u01625l9cg-a.frankfurt-postgres.render.com/graphdb_1fko
+    username: dbuser
+    password: 07y2FuLozK8RsfM8KcymLhzjQMTg4TRh
+    pool-size: 30
+    test-while-idle: true
+    test-on-borrow: true
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: "none"
+
