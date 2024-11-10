@@ -1,0 +1,21 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5433/graphdb
+    username: postgres
+    password: 123456
+    pool-size: 30
+    test-while-idle: true
+    test-on-borrow: true
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: "none"
+
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
