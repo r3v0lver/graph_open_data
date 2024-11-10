@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "https://or.fer.unizg.hr/graphovi.json",
+  "$id": "https://github.com/r3v0lver/graph_open_data/blob/main/graph_db.json",
   "type": "array",
   "title": "Skup podataka o grafovima",
   "description": "Skup podataka o grafovima s različitim atributima i bojanjem, za testiranje algoritama nad grafovima.",
