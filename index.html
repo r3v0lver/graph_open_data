@@ -1,22 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph Data Links</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-<h1>Graph Data Export</h1>
-<div id="links">
+ <!DOCTYPE html>
+    <html lang="en">
 
-    <a href="data/graph_db.json" download>Download JSON</a>
-    <br><br>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="styles.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="title" content="Skup podataka o grafovima">
+        <meta name="description" content="Skup podataka o grafovima s različitim atributima i bojanjem.">
+        <meta name="author" content="Fran Pećnjak">
+        <meta name="license" content="Creative Commons Zero v1.0 Universal">
+        <meta name="version" content="1.0">
+        <meta name="language" content="Engleski">
+        <meta name="date" content="2024-10-26">
 
-    <a href="data/graph_db.csv" download>Download CSV</a>
-    <br><br>
+        <!-- Open Graph meta tags for social media sharing -->
+        <meta property="og:title" content="Skup podataka o grafovima">
+        <meta property="og:description" content="Skup podataka o grafovima s različitim atributima i bojanjem.">
+        <meta property="og:author" content="Fran Pećnjak">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="URL_to_image.png">
 
-    <a href="database.html">Go to Data Table Page</a>
-</div>
-</body>
-</html>
+        <title>Skup podataka o grafovima</title>
+    </head>
+    <body>
+    <h1>Skup podataka o grafovima</h1>
+    <p><strong>Licencija:</strong> Creative Commons Zero v1.0 Universal</p>
+    <p><strong>Autor:</strong> Fran Pećnjak</p>
+    <p><strong>Verzija:</strong> 1.0</p>
+    <p><strong>Jezik:</strong> Engleski</p>
+    <p><strong>Namjena:</strong> Testiranje algoritama nad grafovima</p>
+    <p><strong>Broj grafova:</strong> 10</p>
+    <p><strong>Datum zadnje promjene:</strong> 26.10.2024</p>
+    <p><strong>Datum kreiranja podataka:</strong> 26.10.2024</p>
+
+    <h2>Opis atributa:</h2>
+    <ul>
+        <li><strong>id:</strong> Identifikator grafa</li>
+        <li><strong>vNum:</strong> Broj vrhova</li>
+        <li><strong>adjMatrix:</strong> Matrica susjedstva</li>
+        <li><strong>simpleGraph:</strong> Da li je graf jednostavan</li>
+        <li><strong>chromaticNumber:</strong> Kromatski broj grafa</li>
+        <li><strong>isBipartite:</strong> Da li je graf bipartitan</li>
+        <li><strong>edgeCount:</strong> Broj bridova</li>
+        <li><strong>connectedComponents:</strong> Broj povezanih komponenti</li>
+        <li><strong>density:</strong> Gustoća grafa</li>
+        <li><strong>maxVertexDegree:</strong> Maksimalni stupanj vrha</li>
+    </ul>
+
+    <p><strong>Format podataka:</strong> CSV, JSON</p>
+
+    <div id="links">
+
+        <a href="data/graph_db.json" download>Download JSON</a>
+        <br><br>
+
+        <a href="data/graph_db.csv" download>Download CSV</a>
+        <br><br>
+
+        <a href="database.html">Go to Data Table Page</a>
+    </div>
+
+    </body>
+    </html>
+

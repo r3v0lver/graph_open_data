@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://or.fer.unizg.hr/graphovi.json",
+  "type": "array",
+  "title": "Skup podataka o grafovima",
+  "description": "Skup podataka o grafovima s različitim atributima i bojanjem, za testiranje algoritama nad grafovima.",
+  "items": {
+    "type": "object",
+    "title": "Graf",
+    "description": "Objekt koji sadrži sve podatke o jednom grafu.",
+    "required": [
+      "id",
+      "vNum",
+      "adjMatrix",
+      "simpleGraph",
+      "chromaticNumber",
+      "isBipartite",
+      "edgeCount",
+      "connectedComponents",
+      "density",
+      "maxVertexDegree"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "title": "Identifikator grafa",
+        "description": "Jedinstveni identifikator grafa."
+      },
+      "vNum": {
+        "type": "integer",
+        "title": "Broj vrhova",
+        "description": "Ukupan broj vrhova u grafu."
+      },
+      "adjMatrix": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "title": "Matrica susjedstva",
+        "description": "Matrica koja prikazuje povezanost između vrhova grafa."
+      },
+      "simpleGraph": {
+        "type": "boolean",
+        "title": "Jednostavan graf",
+        "description": "Pokazuje da li je graf jednostavan (tj. bez samosusjeda i više bridova)."
+      },
+      "chromaticNumber": {
+        "type": "integer",
+        "title": "Kromatski broj",
+        "description": "Kromatski broj grafa, koji predstavlja najmanji broj boja potrebnih za obojanje vrhova grafa."
+      },
+      "isBipartite": {
+        "type": "boolean",
+        "title": "Bipartitan graf",
+        "description": "Pokazuje da li je graf bipartitan (može li se podijeliti u dvije disjunktne skupine vrhova)."
+      },
+      "edgeCount": {
+        "type": "integer",
+        "title": "Broj bridova",
+        "description": "Ukupan broj bridova u grafu."
+      },
+      "connectedComponents": {
+        "type": "integer",
+        "title": "Broj povezanih komponenti",
+        "description": "Broj povezanih komponenti u grafu."
+      },
+      "density": {
+        "type": "number",
+        "title": "Gustoća grafa",
+        "description": "Gustoća grafa, definirana kao omjer broja bridova i broja mogućih bridova."
+      },
+      "maxVertexDegree": {
+        "type": "integer",
+        "title": "Maksimalni stupanj vrha",
+        "description": "Maksimalni broj bridova koji izlaze iz bilo kojeg vrha u grafu."
+      },
+      "colorings": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "colorAssignment": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "description": "Polje boja dodijeljenih svakom vrhu u grafu."
+            }
+          }
+        },
+        "description": "Bojanje grafa, koje sadrži boje dodijeljene vrhovima."
+      }
+    }
+  }
+}
