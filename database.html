@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Data Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Graph Data Table</h1>
+
+<!-- Forma za pretragu -->
+<form id="filterForm">
+    <input type="text" id="searchText" placeholder="Enter search text">
+    <select id="filterAttribute">
+        <option value="">All attributes</option>
+        <option id="id" value="id">ID</option>
+        <option id="vertexNumber" value="vertexNumber">Vertex Number</option>
+        <option id="adjMatrix" value="adjMatrix">Adjacency Matrix</option>
+        <option id="simpleGraph" value="simpleGraph">Simple Graph</option>
+        <option id="chromaticNumber" value="chromaticNumber">Chromatic Number</option>
+        <option id="isBipartite" value="isBipartite">Is Bipartite</option>
+        <option id="edgeCount" value="edgeCount">Edge Count</option>
+        <option id="connectedComponents" value="connectedComponents">Connected Components</option>
+        <option id="density" value="density">Density</option>
+        <option id="maxVertexDegree" value="maxVertexDegree">Max Vertex Degree</option>
+    </select>
+    <button type="button" id="submitButton">Search</button>
+    <button id="downloadJson" class="btn btn-primary">Download as JSON</button>
+    <button id="downloadCsv" class="btn btn-secondary">Download as CSV</button>
+</form>
+
+
+<!-- Tablica za prikaz podataka -->
+<table id="graphTable" border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Vertex Number</th>
+        <th>Adjacency Matrix</th>
+        <th>Simple Graph</th>
+        <th>Chromatic Number</th>
+        <th>Is Bipartite</th>
+        <th>Edge Count</th>
+        <th>Connected Components</th>
+        <th>Density</th>
+        <th>Max Vertex Degree</th>
+        <th>Coloring</th> <!-- Nova kolona za bojanje grafa -->
+    </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+</table>
+
+<script src="./script.js"></script>
+</body>
+</html>
