@@ -30,7 +30,6 @@ public class GraphDataAccessService implements GraphDao {
         String search = filter.getSearch();
         boolean hasConditions = false;
 
-        // Kreiranje WHERE klauzule na temelju filtera
         if (filter.isSearchId()) {
             whereStatement.append("id LIKE '%").append(search).append("%'");
             hasConditions = true;
@@ -81,13 +80,11 @@ public class GraphDataAccessService implements GraphDao {
             hasConditions = true;
         }
 
-        // Kreiranje SQL upita
         String sql = "SELECT * FROM graph";
         if (hasConditions) {
             sql += " WHERE " + whereStatement;
         }
 
-        // Dohvat grafova koristeći JdbcTemplate
         List<Graph> graphs = jdbcTemplate.query(sql, (rs, rowNum) -> {
             ArrayList<Coloring> colorings = getColoringsForGraph(rs.getString("id"));
             Graph graph = new Graph(
