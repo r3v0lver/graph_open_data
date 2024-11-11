@@ -9,5 +9,4 @@ public interface GraphDao {
 
     ArrayList<Graph> getFilteredData(SearchFilter filter);
 
-
 }
