@@ -172,21 +172,36 @@ function setupFilterForm() {
     var button = document.getElementById("submitButton");
     button.addEventListener('click', function(event) {
         event.preventDefault();
-
-        var filter = {
-            search: document.getElementById('searchText').value,
-            searchId: document.getElementById('id').selected,
-            searchVertexNumber: document.getElementById('vertexNumber').selected,
-            searchAdjMatrix: document.getElementById('adjMatrix').selected,
-            searchSimpleGraph: document.getElementById('simpleGraph').selected,
-            searchChromaticNumber: document.getElementById('chromaticNumber').selected,
-            searchIsBipartite: document.getElementById('isBipartite').selected,
-            searchEdgeCount: document.getElementById('edgeCount').selected,
-            searchConnectedComponents: document.getElementById('connectedComponents').selected,
-            searchDensity: document.getElementById('density').selected,
-            searchMaxVertexDegree: document.getElementById('maxVertexDegree').selected
-        };
-
+        var filter = {};
+        if(document.getElementById('allAttrs').selected) {
+            filter = {
+                search: document.getElementById('searchText').value,
+                searchId: true,
+                searchVertexNumber: true,
+                searchAdjMatrix: true,
+                searchSimpleGraph: true,
+                searchChromaticNumber: true,
+                searchIsBipartite: true,
+                searchEdgeCount: true,
+                searchConnectedComponents: true,
+                searchDensity: true,
+                searchMaxVertexDegree: true
+            }
+        } else {
+            filter = {
+                search: document.getElementById('searchText').value,
+                searchId: document.getElementById('id').selected,
+                searchVertexNumber: document.getElementById('vertexNumber').selected,
+                searchAdjMatrix: document.getElementById('adjMatrix').selected,
+                searchSimpleGraph: document.getElementById('simpleGraph').selected,
+                searchChromaticNumber: document.getElementById('chromaticNumber').selected,
+                searchIsBipartite: document.getElementById('isBipartite').selected,
+                searchEdgeCount: document.getElementById('edgeCount').selected,
+                searchConnectedComponents: document.getElementById('connectedComponents').selected,
+                searchDensity: document.getElementById('density').selected,
+                searchMaxVertexDegree: document.getElementById('maxVertexDegree').selected
+            };
+        }
         fetchData(filter);
     });
 
