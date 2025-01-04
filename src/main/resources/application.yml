@@ -1,6 +1,6 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5433/graphdb
+    jdbc-url: jdbc:postgresql://localhost:5432/graphdb
     username: postgres
     password: 123456
     pool-size: 30

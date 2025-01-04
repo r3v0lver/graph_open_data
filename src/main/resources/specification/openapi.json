@@ -1,0 +1,287 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Graph API",
+    "version": "1.0.0",
+    "description": "API for managing graph data, colorings, and graph-related operations.",
+    "contact": {
+      "name": "API Support",
+      "email": "fran.pecnjak@fer.hr",
+      "url": ""
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "paths": {
+    "/getSpecification": {
+      "get": {
+        "summary": "Get the specification of the graph API",
+        "description": "Returns the specification of the graph API.",
+        "responses": {
+          "200": {
+            "description": "Specification fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to fetch specification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Failed to fetch specification: [error details]" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getAllGraphs": {
+      "get": {
+        "summary": "Get all graphs",
+        "description": "Returns a list of all graphs.",
+        "responses": {
+          "200": {
+            "description": "Graphs fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Graph"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Failed to fetch graphs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Failed to fetch graphs: [error details]" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getGraph/{id}": {
+      "get": {
+        "summary": "Get a graph by ID",
+        "description": "Fetches a graph by its ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the graph to fetch",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Graph fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Graph"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Graph not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Graph not found with id: {id}" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/getColorings/{graphId}": {
+      "get": {
+        "summary": "Get colorings of a graph",
+        "description": "Fetches all colorings for a given graph ID.",
+        "parameters": [
+          {
+            "name": "graphId",
+            "in": "path",
+            "description": "ID of the graph to fetch colorings for",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Colorings fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Coloring"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Graph or colorings not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Failed to fetch colorings for graph with id: {graphId}" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/insertColoring": {
+      "post": {
+        "summary": "Insert a new coloring",
+        "description": "Inserts a new coloring for a graph.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Coloring"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Coloring inserted successfully"
+          },
+          "400": {
+            "description": "Failed to insert coloring",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Failed to insert coloring: [error details]" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deleteGraph/{id}": {
+      "delete": {
+        "summary": "Delete a graph",
+        "description": "Deletes a graph by its ID and all related colorings.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the graph to delete",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Graph and related colorings deleted successfully"
+          },
+          "404": {
+            "description": "Graph not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string", "example": "ERROR" },
+                    "message": { "type": "string", "example": "Graph not found with id: {id}" },
+                    "data": { "type": "null" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Graph": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "vNum": { "type": "integer" },
+          "adjMatrix": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": { "type": "integer" }
+            }
+          },
+          "simpleGraph": { "type": "boolean" },
+          "chromaticNumber": { "type": "integer" },
+          "isBipartite": { "type": "boolean" },
+          "edgeCount": { "type": "integer" },
+          "connectedComponents": { "type": "integer" },
+          "density": { "type": "number", "format": "float" },
+          "maxVertexDegree": { "type": "integer" }
+        }
+      },
+      "Coloring": {
+        "type": "object",
+        "properties": {
+          "graphId": { "type": "string" },
+          "coloring": {
+            "type": "array",
+            "items": { "type": "integer" }
+          }
+        }
+      }
+    }
+  }
+}
