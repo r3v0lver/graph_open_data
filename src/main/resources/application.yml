@@ -12,6 +12,7 @@ server:
     session:
       cookie:
         same-site: "none"
+  port: 3000
 
 spring:
   flyway:
@@ -19,3 +20,18 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
 
+  security:
+    oauth2:
+      client:
+        registration:
+          okta:
+            client-id: rfRsDpGjGlddP5GltsKMYXI6ETysqxdX
+            client-secret: Cv-EUvu1plCGqkOoI8AbGu0BdkzQzkK4N5CdKWcJuJp1qmcCyVZM621due7KGhqE
+            scope: openid,profile,email
+        provider:
+          okta:
+            issuer-uri: https://dev-estc7npco1flmmpv.us.auth0.com/
+
+# The sample and instructions above for the callback and logout URL configuration use port 3000.
+# If you wish to use a different port, change this and be sure your callback and logout URLs are
+# configured with the correct port.
