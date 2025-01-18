@@ -2,6 +2,8 @@ package com.example.backend_or_lab2.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Arrays;
+
 public class Coloring {
 
     private String graphId;
@@ -18,5 +20,12 @@ public class Coloring {
 
     public Integer[] getColorAssignment() {
         return colorAssignment;
+    }
+
+    public String toCsvFormat() {
+        if (colorAssignment == null || colorAssignment.length == 0) {
+            return "[]";
+        }
+        return Arrays.toString(colorAssignment);
     }
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Korisnički profil</title>
+</head>
+<body>
+<h1>Korisnički profil</h1>
+<div id="profile"></div>
+<script>
+    async function fetchProfile() {
+        try {
+            const response = await fetch('/api/graph/profile');
+            if (response.ok) {
+                const profile = await response.json();
+                document.getElementById('profile').innerHTML = `
+                <p><strong>Ime:</strong> ${profile.name || 'N/A'}</p>
+                <p><strong>Email:</strong> ${profile.email || 'N/A'}</p>
+            `;
+            } else if (response.status === 401) {
+                document.getElementById('profile').innerHTML = `
+                <p><strong>Pristup nije dopušten:</strong> Morate biti prijavljeni da biste vidjeli profil.</p>
+            `;
+            } else {
+                alert('Došlo je do pogreške prilikom dohvaćanja profila!');
+            }
+        } catch (error) {
+            console.error('Greška:', error);
+        }
+    }
+    fetchProfile();
+</script>
+</body>
+</html>

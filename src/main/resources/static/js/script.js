@@ -76,7 +76,7 @@ const CSVToFile = (obj, filename) => {
 
 async function fetchData(filter) {
     try {
-        const response = await fetch("http://localhost:8080/api/graph/getGraphsJson", {
+        const response = await fetch("api/graph/getGraphsJson", {
             method: 'POST',
             credentials: 'include',
             headers: {

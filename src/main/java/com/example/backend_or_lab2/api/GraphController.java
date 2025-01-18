@@ -5,21 +5,23 @@ import com.example.backend_or_lab2.model.Coloring;
 import com.example.backend_or_lab2.model.Graph;
 import com.example.backend_or_lab2.model.SearchFilter;
 import com.example.backend_or_lab2.service.GraphService;
-import jakarta.annotation.Resource;
-import org.flywaydb.core.internal.resource.classpath.ClassPathResource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.server.ResponseStatusException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/graph")
-@CrossOrigin(origins = {"http://localhost:63342"}, allowCredentials = "true",
-        allowedHeaders = {"Content-Type", "*"}, methods = {RequestMethod.PUT, RequestMethod.GET, RequestMethod.DELETE, RequestMethod.POST})
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true",
+        allowedHeaders = {"Content-Type", "Authorization", "X-Requested-With", "Accept", "Origin", "Access-Control-Allow-Origin"})
 public class GraphController {
 
     private final GraphService graphService;
@@ -30,9 +32,20 @@ public class GraphController {
     }
 
     @PostMapping(value = "/getGraphsJson")
-    @CrossOrigin(origins = "http://localhost:63342", allowCredentials = "true", allowedHeaders = "*")
     public ArrayList<Graph> getFilteredDataJson(@RequestBody SearchFilter filter) {
         return graphService.getFilteredDataJson(filter);
+    }
+
+    @PostMapping("/refresh")
+    public ApiResponse<String> refreshFiles() {
+       return graphService.refreshFiles();
+    }
+    @GetMapping("/profile")
+    public Map<String, Object> getProfile(@AuthenticationPrincipal OAuth2User principal) {
+        if (principal == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Niste prijavljeni!");
+        }
+        return principal.getAttributes();
     }
 
     @GetMapping("/getSpecification")
@@ -62,10 +75,31 @@ public class GraphController {
     }
 
     @GetMapping("/getGraph/{id}")
-    public ApiResponse<Graph> getGraphById(@PathVariable String id) {
+    public ApiResponse<Map<String, Object>> getGraphById(@PathVariable String id) {
         try {
             Graph graph = graphService.getGraphById(id);
-            return new ApiResponse<>("OK", "Fetched graph object", graph);
+
+            Map<String, Object> jsonLdResponse = new LinkedHashMap<>();
+            jsonLdResponse.put("@context", "https://schema.org");
+            jsonLdResponse.put("@type", "Graph");
+            jsonLdResponse.put("id", graph.getId());
+
+            Map<String, Object> vertexNumber = new HashMap<>();
+            vertexNumber.put("@type", "QuantitativeValue");
+            vertexNumber.put("value", graph.getVertexNumber());
+            vertexNumber.put("unitText", "count");
+            jsonLdResponse.put("vertexNumber", vertexNumber);
+
+            Map<String, Object> chromaticNumber = new HashMap<>();
+            chromaticNumber.put("@type", "QuantitativeValue");
+            chromaticNumber.put("value", graph.getChromaticNumber());
+            chromaticNumber.put("unitText", "color");
+            jsonLdResponse.put("chromaticNumber", chromaticNumber);
+
+            jsonLdResponse.put("adjMatrix", graph.getAdjMatrix());
+            jsonLdResponse.put("isBipartite", graph.isBipartite());
+            jsonLdResponse.put("edgeCount", graph.getEdgeCount());
+            return new ApiResponse<>("OK", "Fetched graph object", jsonLdResponse);
         } catch (RuntimeException e) {
             return new ApiResponse<>("ERROR", "Graph not found with id: " + id, null);
         }

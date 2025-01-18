@@ -1,3 +1,5 @@
+
+
 app:
   datasource:
     jdbc-url: jdbc:postgresql://localhost:5432/graphdb
@@ -6,12 +8,12 @@ app:
     pool-size: 30
     test-while-idle: true
     test-on-borrow: true
-
 server:
   servlet:
     session:
       cookie:
-        same-site: "none"
+        same-site: "None"
+        secure: true
   port: 3000
 
 spring:
@@ -25,13 +27,15 @@ spring:
       client:
         registration:
           okta:
-            client-id: rfRsDpGjGlddP5GltsKMYXI6ETysqxdX
-            client-secret: Cv-EUvu1plCGqkOoI8AbGu0BdkzQzkK4N5CdKWcJuJp1qmcCyVZM621due7KGhqE
+            client-id: XMBlMM05rUe4kkwCvVX4i6vPF5rTfnKm
+            client-secret: Hd0EmAWj-bNSD2TE2rFZOB8Bjvdz0NkVP21HJE2t_jOjQLzugZBABAvW2g-8jSXG
             scope: openid,profile,email
         provider:
           okta:
-            issuer-uri: https://dev-estc7npco1flmmpv.us.auth0.com/
-
-# The sample and instructions above for the callback and logout URL configuration use port 3000.
-# If you wish to use a different port, change this and be sure your callback and logout URLs are
-# configured with the correct port.
+            issuer-uri: https://dev-q1p2f8uyj300jl5f.us.auth0.com/
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot: DEBUG
+    org.hibernate: DEBUG
